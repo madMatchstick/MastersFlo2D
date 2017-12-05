@@ -61,6 +61,10 @@ color: #3086A8;
   padding-left: 50px !important;
 }
 
+.indentLess {
+  padding-left: 25px !important;
+}
+
 [type="checkbox"]+label.multiline {
   line-height: 14px;
 }
