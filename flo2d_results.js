@@ -382,6 +382,51 @@ map.on('style.load', function () {
 //------------------------------------ADD NHFL LAYER-----------------------------
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    map.addLayer({
+    id: 'genStruct',
+    source: 'nhfl_genStruct',
+    'source-layer': 'flo2d_NHFL_GEN_STRUCT_clipped-4gcuxp',
+    type: 'line',
+    layout: {
+        'visibility': 'none',
+        'line-join': 'miter',
+        'line-cap': 'butt'
+      },
+    paint: {
+        'line-color': '#D6D6D6',
+        'line-width': {
+              "stops": [[15, 2], [17, 3.5], [19, 5.5]]
+        },
+
+    }
+  }, 'road-label-small');
+
+
+  map.addLayer({
+      'id': 'structLabels',
+      'type': 'symbol',
+      'source': 'nhfl_genStruct',
+      'source-layer': 'flo2d_NHFL_GEN_STRUCT_clipped-4gcuxp',      
+      'layout': {
+         "visibility": 'none',
+         "text-optional": false,
+         "text-line-height": 1,
+         "text-size": {
+             "stops": [[15, 15], [17, 11]]
+         },
+         "text-field": "{STRUCT_TYP}",
+         'text-font': ['Open Sans Bold','Arial Unicode MS Regular', 'Roboto Light Italic'],
+         "text-allow-overlap": false,
+         'symbol-placement': 'line'
+     },
+     "paint": {
+       "text-color": "#eee",
+       "text-halo-color": "#000", 
+       "text-halo-width": {"stops": [[15,1.3],[17,3]]},
+       "text-opacity":1
+     }
+
+       }, 'road-label-small');
 
     map.addLayer({
     id: 'fw',
@@ -393,9 +438,9 @@ map.on('style.load', function () {
         'visibility': 'none'
       },
     paint: {
-        'fill-opacity': 0.5,
-        'fill-color': '#F5DD12',
-        'fill-outline-color': '#F5DD12'
+        'fill-opacity': 0.65,
+        'fill-color': '#F4A700',
+        'fill-outline-color': '#F4A700'
     }
   }, 'road-label-small');
 
@@ -411,11 +456,29 @@ map.on('style.load', function () {
         'visibility': 'none'
       },
     paint: {
-        'fill-opacity': 0.5,
-        'fill-color': '#F56400',
-        'fill-outline-color': '#F56400'
+        'fill-opacity': 0.65,
+        'fill-color': '#F40045',
+        'fill-outline-color': '#F40045'
     }
   }, 'road-label-small');
+
+
+    map.addLayer({
+    id: '100',
+    source: 'nhfl_hazAr',
+    'source-layer': 'flo2d_NHFL_HAZ_AR_clipped-didwlw',
+    type: 'fill',
+    'filter': ["all",['==', 'ZONE_SUBTY', '']],
+    layout: {
+        'visibility': 'none'
+      },
+    paint: {
+        'fill-opacity': 0.65,
+        'fill-color': '#F46500',
+        'fill-outline-color': '#F46500'
+    }
+  }, 'road-label-small');
+
 
 
 
@@ -430,7 +493,7 @@ map.on('style.load', function () {
         'line-cap': 'butt'
       },
     paint: {
-        'line-color': '#89DBF5',
+        'line-color': '#F4F200',
         'line-width': {
               "stops": [[15, 1.3], [17, 2.5], [19, 4]]
         },
@@ -457,7 +520,7 @@ map.on('style.load', function () {
          'symbol-placement': 'line'
      },
      "paint": {
-       "text-color": "#89DBF5",
+       "text-color": "#F4F200",
        "text-halo-color": "#000", 
        "text-halo-width": {"stops": [[15,1.3],[17,3]]},
        "text-opacity":1
