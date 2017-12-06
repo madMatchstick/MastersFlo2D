@@ -160,6 +160,20 @@ map.on('style.load', function () {
       }
   }, 'road-label-small');
 
+        map.addLayer({
+      'id': 'parcelpoly',
+      'source': 'parcel',
+      'source-layer': 'flo2d_parcelClip-9omoj1',
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#E5CBFF',
+        'fill-opacity': 0
+      }
+  }, 'road-label-small');
+
     map.addLayer({
       'id': 'studyBoundaries',
       'source': 'projectLimits',
@@ -1403,6 +1417,35 @@ for (var s = 0; s < studyRadio.length; s++) {
 
 
 
+    map.on('click', function(e) {
+        
+       var featureList = map.queryRenderedFeatures(e.point, { layers: ['parcelpoly'] });
+          if (!featureList.length) {
+          return;
+          }
+
+      var feature = featureList[0];
+      var id = feature.layer.id;
+
+
+     if (id == 'parcelpoly'){
+        var popup = new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML('<b>'+'ADDRESS: ' + '</b>' + feature.properties.SITUS_AD_1 + ' '+ feature.properties.SITUS_ZIP + '<br/>' +
+                     '<b>'+'CLASSIFICATION: ' + '</b>' + feature.properties.D_CLASS_CN + '<br/>' +
+                     '<b>'+'OWNER: ' + '</b>'+  feature.properties.OWNER_NAME)
+            .addTo(map);
+          };
+
+
+    });
+
+    map.on('mousemove', function (e) {
+    var featureList = map.queryRenderedFeatures(e.point, { layers: ['parcelpoly'] });
+    map.getCanvas().style.cursor = (featureList.length) ? 'pointer' : '';
+    });
+
+        
 
 
 
