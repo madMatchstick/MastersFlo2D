@@ -56,12 +56,15 @@ map.on('style.load', function () {
 
      map.addSource('inOutFlow', {
         type: 'vector',
-        url: 'mapbox://jlgred88.6e8w4esr'   //flo2d_inOutFlow-043f46   
+        url: 'mapbox://jlgred88.3w6q0kii'   //Flo2d_inOutFlow2-drrtds   
     });
     
      map.addSource('nVal', {
-        type: 'vector',
-        url: 'mapbox://jlgred88.66gn81xe'   //flo2d_Nval-8p5ttb   
+      type: 'geojson',
+      "data": 'nval.geojson'
+
+        //type: 'vector',
+        //url: 'mapbox://jlgred88.66gn81xe'   //flo2d_Nval-8p5ttb   
     });
  
     map.addSource('levee', {
@@ -73,6 +76,9 @@ map.on('style.load', function () {
         type: 'vector',
         url: 'mapbox://jlgred88.3m71f2nz'  // flo2d_floodplainXs-6rx1nt  
     });
+
+    
+
 
     map.addSource('structures', {
         type: 'vector',
@@ -94,6 +100,11 @@ map.on('style.load', function () {
         url: 'mapbox://jlgred88.1hs1s459'  //flo2d_StudyArea-2nw1t6
     });
   
+    
+
+
+
+
     map.addSource('nhfl_xs', {
         type: 'vector',
         url: 'mapbox://jlgred88.axgrjd2p'  //flo2d_NHFL_XS_clipped-8b52gm
@@ -164,34 +175,9 @@ map.on('style.load', function () {
       }
   }, 'road-label-small');
 
-/*
-    map.addLayer({
-      'id': 'studyBoundaries',
-      'source': 'boundary',
-      'source-layer': 'flo2d_boundary-35iden',
-      'layout': {
-        'visibility': 'visible'
-      },
-      'type': 'fill',
-      'paint': {
-        //'fill-outline-color': '#0F697F',
-        'fill-color': {
-            property: 'Name',
-            type: 'categorical',
-            stops: [
-              ['Broadway South', '#6a3d9a'],
-              ['Broadway North', '#fdbf6f'],
-              ['AHEC', '#33a02c'],
-              ['Wash Park', '#e31a1c'],
-              ['Colfax Central', '#fb9a99'],
-              ['Sante Fe North', '#ff7f00'],
-              ['Sante Fe South', '#a6cee3']  
-              ]
-            },
-        'fill-opacity': 0.09
-      }
-  }, 'road-label-small');
-  */
+
+
+  
 
     map.addLayer({
       'id': 'studyBoundariesLine',
@@ -264,26 +250,12 @@ map.on('style.load', function () {
       'type': 'fill',
       'paint': {
         'fill-outline-color': '#0F697F',
-        'fill-color': '#0F697F'
+        'fill-color': '#0F697F',
+        'fill-opacity': 0,
       }
   }, 'road-label-small');
 
 
-    map.addLayer({
-      'id': '3d-buildings',
-      'source': 'structures',
-      'source-layer': 'flo2d_buildingComplete-5zm9sw',
-      'type': 'fill-extrusion',
-      'layout': {
-        'visibility': 'none'
-      },
-      'paint': {
-            'fill-extrusion-color': '#0F697F',
-            'fill-extrusion-height': {'property': 'BLDG_HEIGH',
-               'type': 'identity'},
-            'fill-extrusion-opacity': 0.8
-        }
-    }, 'road-label-small');
 
 
 
@@ -295,11 +267,75 @@ map.on('style.load', function () {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
+// WASH PARK
+
     map.addLayer({
-      'id': 'inflow',
+      'id': 'studyBoundariesLine_WP',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_WP',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      },
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'nVal_WP',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_WP',
       'source': 'inOutFlow',
-      'source-layer': 'flo2d_inOutFlow-043f46',
-      'filter': ["==", 'type', 'inflow'],
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'Wash Park']],
       'layout': {
         'visibility': 'none'
       },
@@ -318,10 +354,10 @@ map.on('style.load', function () {
 
 
     map.addLayer({
-      'id': 'outflow',
+      'id': 'outflow_WP',
       'source': 'inOutFlow',
-      'source-layer': 'flo2d_inOutFlow-043f46',
-      'filter': ["==", 'type', 'outflow'],
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'Wash Park']],
       'layout': {
         'visibility': 'none'
       },
@@ -337,6 +373,685 @@ map.on('style.load', function () {
            //   }, 
       }
   }, 'road-label-small');
+
+
+
+
+
+
+// Colfax 
+
+    map.addLayer({
+      'id': 'studyBoundariesLine_CC',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Colfax Central'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_CC',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Colfax Central'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      }
+  }, 'road-label-small');
+
+
+
+
+    map.addLayer({
+      'id': 'nVal_CC',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'Colfax Central'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_CC',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'Colfax Central']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 2], [15, 4], [17, 7.5]]
+               }, 
+            "circle-color": "#FFC71F",
+            'circle-stroke-color': '#eee',
+            'circle-stroke-width': {
+               "stops": [[12, 1], [15, 2], [17, 4]]
+               }, 
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'outflow_CC',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'Colfax Central']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 0.2], [15,2], [17, 3]]
+               }, 
+            "circle-color": "#00FFC5",
+           // 'circle-stroke-color': '#eee',
+           // 'circle-stroke-width': {
+           //    "stops": [[12, 1.6], [15, 3], [17, 4.3]]
+           //   }, 
+      }
+  }, 'road-label-small');
+
+
+
+
+
+
+
+// Sante Fe South
+
+
+      map.addLayer({
+      'id': 'studyBoundariesLine_SS',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Sante Fe South'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_SS',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Sante Fe South'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      }
+  }, 'road-label-small');
+
+    map.addLayer({
+      'id': 'nVal_SS',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'Sante Fe South'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_SS',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'Sante Fe South']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 2], [15, 4], [17, 7.5]]
+               }, 
+            "circle-color": "#FFC71F",
+            'circle-stroke-color': '#eee',
+            'circle-stroke-width': {
+               "stops": [[12, 1], [15, 2], [17, 4]]
+               }, 
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'outflow_SS',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'Sante Fe South']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 0.2], [15,2], [17, 3]]
+               }, 
+            "circle-color": "#00FFC5",
+           // 'circle-stroke-color': '#eee',
+           // 'circle-stroke-width': {
+           //    "stops": [[12, 1.6], [15, 3], [17, 4.3]]
+           //   }, 
+      }
+  }, 'road-label-small');
+
+
+
+
+
+
+
+
+// Sante Fe North
+    map.addLayer({
+      'id': 'studyBoundariesLine_SN',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Sante Fe North'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_SN',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Sante Fe North'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'nVal_SN',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'Sante Fe North'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_SN',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'Sante Fe North']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 2], [15, 4], [17, 7.5]]
+               }, 
+            "circle-color": "#FFC71F",
+            'circle-stroke-color': '#eee',
+            'circle-stroke-width': {
+               "stops": [[12, 1], [15, 2], [17, 4]]
+               }, 
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'outflow_SN',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'Sante Fe North']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 0.2], [15,2], [17, 3]]
+               }, 
+            "circle-color": "#00FFC5",
+           // 'circle-stroke-color': '#eee',
+           // 'circle-stroke-width': {
+           //    "stops": [[12, 1.6], [15, 3], [17, 4.3]]
+           //   }, 
+      }
+  }, 'road-label-small');
+
+
+
+
+
+
+// Broadway North
+    map.addLayer({
+      'id': 'studyBoundariesLine_BN',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Broadway North'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_BN',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Broadway North'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'nVal_BN',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'Broadway North'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_BN',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'Broadway North']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 2], [15, 4], [17, 7.5]]
+               }, 
+            "circle-color": "#FFC71F",
+            'circle-stroke-color': '#eee',
+            'circle-stroke-width': {
+               "stops": [[12, 1], [15, 2], [17, 4]]
+               }, 
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'outflow_BN',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'Broadway North']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 0.2], [15,2], [17, 3]]
+               }, 
+            "circle-color": "#00FFC5",
+           // 'circle-stroke-color': '#eee',
+           // 'circle-stroke-width': {
+           //    "stops": [[12, 1.6], [15, 3], [17, 4.3]]
+           //   }, 
+      }
+  }, 'road-label-small');
+
+
+
+
+
+// Broadway South
+    map.addLayer({
+      'id': 'studyBoundariesLine_BS',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Broadway South'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_BS',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'Broadway South'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'nVal_BS',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'Broadway South'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_BS',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'Broadway South']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 2], [15, 4], [17, 7.5]]
+               }, 
+            "circle-color": "#FFC71F",
+            'circle-stroke-color': '#eee',
+            'circle-stroke-width': {
+               "stops": [[12, 1], [15, 2], [17, 4]]
+               }, 
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'outflow_BS',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'Broadway South']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 0.2], [15,2], [17, 3]]
+               }, 
+            "circle-color": "#00FFC5",
+           // 'circle-stroke-color': '#eee',
+           // 'circle-stroke-width': {
+           //    "stops": [[12, 1.6], [15, 3], [17, 4.3]]
+           //   }, 
+      }
+  }, 'road-label-small');
+
+
+
+
+
+
+
+
+
+// AHEC
+    map.addLayer({
+      'id': 'studyBoundariesLine_AHEC',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'AHEC'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'line',
+      'paint': {
+        'line-color': '#86D123',
+        'line-dasharray': [6,3],
+        'line-width': {
+            "stops": [[15, 2], [17, 2.75], [19, 3]],
+        },
+        'line-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+      map.addLayer({
+      'id': 'studyBoundariesFill_AHEC',
+      'source': 'boundary',
+      'source-layer': 'flo2d_boundary-35iden',
+      'filter': ["==", 'Name', 'AHEC'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': '#eee',
+        'fill-opacity': 0.2
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'nVal_AHEC',
+      'source': 'nVal',
+      //'source-layer': 'flo2d_Nval-8p5ttb',
+      'filter': ["==", 'Name', 'AHEC'],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'fill',
+      'paint': {
+        'fill-color': {
+            property: 'rnd_val',
+            stops: [
+              [0.031, '#ff73be'],
+              [0.11, '#51e86e'],
+              [0.151, '#ffed50'],
+              [0.21, '#f46134'],
+              [0.41, '#00bdc9'] 
+              ]
+            },
+        'fill-opacity': 0.7
+      }
+  }, 'road-label-small');
+
+
+
+    map.addLayer({
+      'id': 'inflow_AHEC',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'inflow'],["==", 'Name', 'AHEC']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 2], [15, 4], [17, 7.5]]
+               }, 
+            "circle-color": "#FFC71F",
+            'circle-stroke-color': '#eee',
+            'circle-stroke-width': {
+               "stops": [[12, 1], [15, 2], [17, 4]]
+               }, 
+      }
+  }, 'road-label-small');
+
+
+    map.addLayer({
+      'id': 'outflow_AHEC',
+      'source': 'inOutFlow',
+      'source-layer': 'Flo2d_inOutFlow2-drrtds',
+      'filter': ["all",["==", 'type', 'outflow'],["==", 'Name', 'AHEC']],
+      'layout': {
+        'visibility': 'none'
+      },
+      'type': 'circle',
+      'paint': {
+            "circle-radius":{
+               "stops": [[12, 0.2], [15,2], [17, 3]]
+               }, 
+            "circle-color": "#00FFC5",
+           // 'circle-stroke-color': '#eee',
+           // 'circle-stroke-width': {
+           //    "stops": [[12, 1.6], [15, 3], [17, 4.3]]
+           //   }, 
+      }
+  }, 'road-label-small');
+
+
+
+
 
 
 
@@ -373,6 +1088,8 @@ map.on('style.load', function () {
       }
   }, 'road-label-small');
  
+
+
 
 
 
@@ -527,5 +1244,219 @@ map.on('style.load', function () {
      }
   },'road-label-small');
 
+
+
+    map.addLayer({
+      'id': '3d-buildings',
+      'source': 'structures',
+      'source-layer': 'flo2d_buildingComplete-5zm9sw',  
+      'type': 'fill-extrusion',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+            'fill-extrusion-color': '#0F697F',
+            'fill-extrusion-height': {'property': 'BLDG_HEIGH',
+               'type': 'identity'},
+            'fill-extrusion-opacity': 0
+        }
+    }, 'road-label-small');
+
+
+
 });
+
+
+
+
+
+//Radio Button for building
+var dimList = document.getElementById('dimSwitch');
+var dimRadio = dimList.getElementsByTagName('input');
+
+function switchDim() {
+  var value = document.querySelector('input[name="switchDim"]:checked').value;
+      if (value == '3d'){
+        map.setLayoutProperty('3d-buildings','visibility', 'visible');
+        map.setLayoutProperty('structures','visibility', 'none');
+      }
+      else if (value == '2d'){
+        map.setLayoutProperty('3d-buildings','visibility', 'none');
+        map.setLayoutProperty('structures','visibility', 'visible');
+      }
+      else {};
+
+}
+
+for (var i = 0; i < dimRadio.length; i++) {
+    dimRadio[i].onclick = switchDim;
+}
+
+
+//Radio Button for Affected Struct
+/*var dimList2 = document.getElementById('dimSwitch2');
+var dimradio2 = dimList2.getElementsByTagName('input');
+
+function switchDim2() {
+  var value = document.querySelector('input[name="switchDim2"]:checked').value;
+      if (value == '3d2'){
+        map.setLayoutProperty('3d-buildings_aff','visibility', 'visible');
+        map.setLayoutProperty('structures_aff','visibility', 'none');
+      }
+      else if (value == '2d2'){
+        map.setLayoutProperty('3d-buildings_aff','visibility', 'none');
+        map.setLayoutProperty('structures_aff','visibility', 'visible');
+      }
+      else {};
+
+}
+
+for (var i = 0; i < dimRadio2.length; i++) {
+    dimRadio2[i].onclick = switchDim2
+}
+*/
+
+
+/*
+
+//checkbox
+var studyList = document.getElementById('study');
+var studyRadio = studyList.getElementsByTagName('input');
+
+function switchStudy() {
+    
+$(document).ready(function(){
+        $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                var value = document.querySelector('input[name="studyMenu"]:checked').value;
+                var id = document.querySelector('input[name="studyMenu"]:checked').id
+
+                          if (id== 'inflow'){
+                            map.setLayoutProperty('inflow', 'visibility', 'visible'); 
+                            map.setFilter('inflow', ['==', 'Name', value])
+                            }
+                          else if (id == 'outflow'){
+                            map.setLayoutProperty('outflow', 'visibility', 'visible');  
+                            map.setFilter('outflow', ['==', 'Name', value])
+                            } 
+                          else if (id == 'nVal')
+                            { toggleLayer('nVal'); 
+                            map.setFilter('nVal', ['==', 'Name', value])
+                            } 
+                          else if (id == 'affectStruct')
+                            { toggleLayer('affectStruct'); 
+                            map.setFilter('affectStruct', ['==', 'Name', value])
+                            } 
+                          else if (id == 'depth')
+                            { toggleLayer('depth'); 
+                            map.setFilter('depth', ['==', 'Name', value])
+                            } 
+                          else if (id == 'boundaryIndivid')
+                            { toggleLayer('boundaryIndivid'); 
+                            map.setFilter('boundaryIndivid', ['==', 'Name', value])
+                            } 
+
+                      
+                }
+            
+              else if($(this).prop("checked") == false){
+
+                          if (id== 'inflow'){
+                            map.setLayoutProperty('inflow', 'visibility', 'none'); 
+                            }
+                          else if (id == 'outflow'){
+                            map.setLayoutProperty('outflow', 'visibility', 'none');  
+                            } 
+                          else if (id == 'nVal')
+                            { toggleLayer('nVal'); 
+                            } 
+                          else if (id == 'affectStruct')
+                            { toggleLayer('affectStruct'); 
+                            map.setFilter('affectStruct', ['==', 'Name', value])
+                            } 
+                          else if (id == 'depth')
+                            { toggleLayer('depth'); 
+                            map.setFilter('depth', ['==', 'Name', value])
+                            } 
+                          else if (id == 'boundaryIndivid')
+                            { toggleLayer('boundaryIndivid'); 
+                            map.setFilter('boundaryIndivid', ['==', 'Name', value])
+                            } 
+                
+
+            }
+        });
+    });
+
+   
+
+
+}
+
+for (var s = 0; s < studyRadio.length; s++) {
+    studyRadio[s].onclick = switchStudy;
+}
+
+
+
+*/
+
+
+
+
+
+
+document.getElementById('AHEC_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-105.013,39.7369 ], [-104.998,39.7486]]; 
+  map.fitBounds(bbox, { padding:10 }); 
+
+});
+
+document.getElementById('Colfax_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-105,39.7256], [-104.98,39.7431]];  
+  map.fitBounds(bbox, { padding:10 });
+
+});
+
+document.getElementById('SoBo_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-105.002,39.6974], [-104.979,39.717]];
+  map.fitBounds(bbox, { padding:10 });
+
+});
+
+document.getElementById('NoBo_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-104.992,39.7106], [-104.979,39.7282]]; 
+  map.fitBounds(bbox, { padding:10 });
+
+});
+
+
+document.getElementById('NoFe_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-105.009,39.7264], [-104.989,39.744]];
+  map.fitBounds(bbox, { padding:10 }); 
+
+});
+
+
+document.getElementById('SoFe_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-105.006,39.7157], [-104.988,39.7295]]; 
+  map.fitBounds(bbox, { padding:10 });
+
+});
+
+
+document.getElementById('Washpark_Zoom').addEventListener('click', function() {
+
+  var bbox = [[-104.978,39.6925], [-104.964,39.7107]]; 
+  map.fitBounds(bbox, { padding:10 });
+
+});
+
+
 map.addControl(new mapboxgl.NavigationControl(), 'top-right');

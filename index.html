@@ -29,7 +29,6 @@
         body { margin:0; padding:0; }
         #map { position:absolute; height: calc(100vh); width: calc(100vw - 320px); }
         .trend {stroke-width: 4;stroke-opacity:.12;fill:none;}
-        .recPlan {stroke-width: 4;stroke-opacity:.75;stroke:#045275;fill:none;}
         .tick line {stroke: rgba(0, 0, 0, 0.1);stroke-dasharray:2;}
         @media only screen and (max-width: 1024px) {
           #map {width: 100vw;}
@@ -39,7 +38,7 @@
 
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
-    <div class="mdl-layout__drawer mdl-color--grey-700 mdl-color-text--grey-60 mdl-shadow--2dp">
+    <div class="mdl-layout__drawer mdl-color-text--grey-60 mdl-shadow--2dp">
       <h4 style="padding:0 1rem; text-align:center; margin-bottom: 0.3;">2-D Hydraulic Modeling</h4>
       <h5 style="padding:0 1rem; text-align:center; margin-top:0;" >Floodplain Analysis of Seven Regions in Denver County</h5>
       <ul class="collapsible" data-collapsible="expandable" style="border-right: none; border-left: none;">
@@ -106,17 +105,26 @@
             </p>  
 
 
-            <p>
-              <input name= "struct" type="checkbox" id="struct" class="layer-off" onclick="toggleLayer('3d-buildings')" />
-              <label for="struct"  class="valign">Building Footprints; 3D</label>
-            </p>
 
+            
 
             <p>
-              <input name= "contour" type="checkbox" id="contour" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
-              <label for="contour"  class="valign">Contours</label>
-            </p>               
+              <input name= "struct" type="checkbox" id="struct" class="layer-off" onclick="smoothTwo('3d-buildings','fill-extrusion-opacity',0.8,'structures','fill-opacity',0.8)"/>
+              <label for="struct"  class="valign">Building Footprints</label>
+            </p>            
+  
+             <div id="dimSwitch">
+ 
+               <p class="indent">
+                  <input name="switchDim" type="radio" id="3dmenu" class="layer-on" value='3d' checked/><label for="3dmenu">3D</label>
+                 </p>
+ 
+                <p class="indent">
+                 <input name="switchDim" type="radio" id="2dmenu" class="layer-off" value='2d'/>
+                 <label for="2dmenu">2D</label>
+                 </p>
 
+              </div>
 
         </div>
       </li>
@@ -124,57 +132,503 @@
 
 
 
-
-
+            
       <li>
-         <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Hydraulics</div>
-         <div class="collapsible-body white">
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Washington Park</div>
+        <div class="collapsible-body white">
 
-            <p>
-              <input name= "in" type="checkbox" id="in" class="layer-off" onclick="toggleLayer('inflow')" />
-              <label for="in"  class="valign">Inflow Nodes</label>
-            </p>  
+        <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "Washpark_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
 
-
-            <p>
-              <input name= "out" type="checkbox" id="out" class="layer-off" onclick="toggleLayer('outflow')" />
-              <label for="out"  class="valign">Outflow Nodes</label>
-            </p>  
-
-
-            <p>
-              <input name= "levee" type="checkbox" id="levee" class="layer-off" onclick="toggleLayer('levee')" />
-              <label for="levee"  class="valign">Levees (AHEC)</label>
-            </p>  
+                               <p>
+                                  <input name= "bound_wp" type="checkbox" id="bound_wp" class="layer-off" onclick="toggleTwo('studyBoundariesFill_WP', 'studyBoundariesLine_WP')" />
+                                  <label for="bound_wp"  class="valign">Study Extents</label>
+                                </p>   
 
 
-            <p>
-              <input name= "fxs" type="checkbox" id="fxs" class="layer-off" onclick="toggleLayer('f2d_xs')" />
-              <label for="fxs"  class="valign">Floodplain Cross Sections (AHEC)</label>
-            </p> 
+
+                              <p>
+                                  <input name= "contour" type="checkbox" id="contour" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct" type="checkbox" id="affstruct" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct"  class="valign">Affected Structures</label>
+                                </p>          
+   
+
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval" class="layer-off" onclick="toggleLayer('nVal_WP')" />
+                                  <label for="nval"  class="valign">Manning's N Values</label>
+                                </p>           
 
 
-            <p>
-              <input name= "depth" type="checkbox" id="depth" class="layer-off" onclick="toggleLayer('structure')" />
-              <label for="depth"  class="valign">Flooding Depths at Cell</label>
-            </p>  
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow" class="layer-off" onclick="toggleLayer('inflow_WP')"  />
+                                  <label for="inflow"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow" class="layer-off" onclick="toggleLayer('outflow_WP')" />
+                                  <label for="outflow"  class="valign">Outflow Nodes</label>
+                                </p>  
 
 
-            <p>
-              <input name= "vector" type="checkbox" id="vector" class="layer-off" onclick="toggleLayer('structure')" />
-              <label for="vector"  class="valign">Vector Matrix</label>
-            </p>    
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
 
 
-            <p>
-              <input name= "affstruct" type="checkbox" id="affstruct" class="layer-off" onclick="toggleLayer('structure')" />
-              <label for="affstruct"  class="valign">Affected Structures</label>
-            </p>          
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
 
       </div>
       </li>
 
 
+
+
+
+
+<li>
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Broadway South</div>
+        <div class="collapsible-body white">
+
+        <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "SoBo_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
+
+                               <p>
+                                  <input name= "bound_sb" type="checkbox" id="bound_sb" class="layer-off" onclick="toggleTwo('studyBoundariesFill_BS', 'studyBoundariesLine_BS')" />
+                                  <label for="bound_sb"  class="valign">Study Extents</label>
+                                </p>   
+
+
+                                <p>
+                                  <input name= "contour" type="checkbox" id="contour1" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour1"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct" type="checkbox" id="affstruct1" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct1"  class="valign">Affected Structures</label>
+                                </p> 
+
+
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval1" class="layer-off" onclick="toggleLayer('nVal_BS')" />
+                                  <label for="nval1"  class="valign">Manning's N Values</label>
+                                </p>           
+
+   
+
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow1" class="layer-off" onclick="toggleLayer('inflow_BS')"  />
+                                  <label for="inflow1"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow1" class="layer-off" onclick="toggleLayer('outflow_BS')" />
+                                  <label for="outflow1"  class="valign">Outflow Nodes</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth1" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth1"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector1" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector1"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
+
+      </div>
+      </li>
+
+
+
+
+<li>
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Broadway North</div>
+        <div class="collapsible-body white">
+
+        <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "NoBo_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
+                               <p>
+                                  <input name= "bound_nb" type="checkbox" id="bound_nb" class="layer-off" onclick="toggleTwo('studyBoundariesFill_BN', 'studyBoundariesLine_BN')" />
+                                  <label for="bound_nb"  class="valign">Study Extents</label>
+                                </p>         
+
+
+                                <p>
+                                  <input name= "contour2" type="checkbox" id="contour2" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour2"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct2" type="checkbox" id="affstruct2" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct2"  class="valign">Affected Structures</label>
+                                </p>     
+
+
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval2" class="layer-off" onclick="toggleLayer('nVal_BN')" />
+                                  <label for="nval2"  class="valign">Manning's N Values</label>
+                                </p>          
+   
+
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow2" class="layer-off" onclick="toggleLayer('inflow_BN')"  />
+                                  <label for="inflow2"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow2" class="layer-off" onclick="toggleLayer('outflow_BN')" />
+                                  <label for="outflow2"  class="valign">Outflow Nodes</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth2" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth2"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector2" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector2"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
+
+      </div>
+      </li>
+
+
+<li>
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Colfax Central</div>
+        <div class="collapsible-body white">
+
+        <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "Colfax_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
+
+                               <p>
+                                  <input name= "bound_cc" type="checkbox" id="bound_cc" class="layer-off" onclick="toggleTwo('studyBoundariesFill_CC', 'studyBoundariesLine_CC')" />
+                                  <label for="bound_CC"  class="valign">Study Extents</label>
+                                </p>         
+
+
+                                <p>
+                                  <input name= "contour" type="checkbox" id="contour5" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour5"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct" type="checkbox" id="affstruct5" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct5"  class="valign">Affected Structures</label>
+                                </p>          
+   
+
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval5" class="layer-off" onclick="toggleLayer('nVal_CC')" />
+                                  <label for="nval5"  class="valign">Manning's N Values</label>
+                                </p>           
+
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow5" class="layer-off" onclick="toggleLayer('inflow_CC')"  />
+                                  <label for="inflow5"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow5" class="layer-off" onclick="toggleLayer('outflow_CC')" />
+                                  <label for="outflow5"  class="valign">Outflow Nodes</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth5" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth5"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector5" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector5"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
+
+      </div>
+      </li>
+
+
+
+
+<li>
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Sante Fe South</div>
+        <div class="collapsible-body white">
+
+         <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "SoFe_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
+
+                               <p>
+                                  <input name= "bound_ss" type="checkbox" id="bound_ss" class="layer-off" onclick="toggleTwo('studyBoundariesFill_SS', 'studyBoundariesLine_SS')" />
+                                  <label for="bound_ss"  class="valign">Study Extents</label>
+                                </p>         
+
+
+                                <p>
+                                  <input name= "contour" type="checkbox" id="contour3" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour3"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct" type="checkbox" id="affstruct3" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct3"  class="valign">Affected Structures</label>
+                                </p>          
+   
+
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval3" class="layer-off" onclick="toggleLayer('nVal_SS')" />
+                                  <label for="nval3"  class="valign">Manning's N Values</label>
+                                </p>           
+
+
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow3" class="layer-off" onclick="toggleLayer('inflow_SS')"  />
+                                  <label for="inflow3"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow3" class="layer-off" onclick="toggleLayer('outflow_SS')" />
+                                  <label for="outflow3"  class="valign">Outflow Nodes</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth3" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth3"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector3" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector3"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
+
+      </div>
+      </li>
+
+
+<li>
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>Sante Fe North</div>
+        <div class="collapsible-body white">
+        
+
+        <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "NoFe_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
+
+
+                               <p>
+                                  <input name= "bound_sn" type="checkbox" id="bound_sn" class="layer-off" onclick="toggleTwo('studyBoundariesFill_SN', 'studyBoundariesLine_SN')" />
+                                  <label for="bound_sn"  class="valign">Study Extents</label>
+                                </p>         
+
+
+                                <p>
+                                  <input name= "contour" type="checkbox" id="contour4" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour4"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct" type="checkbox" id="affstruct4" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct4"  class="valign">Affected Structures</label>
+                                </p>          
+   
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval4" class="layer-off" onclick="toggleLayer('nVal_SN')" />
+                                  <label for="nval4"  class="valign">Manning's N Values</label>
+                                </p>           
+
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow4" class="layer-off" onclick="toggleLayer('inflow_SN')"  />
+                                  <label for="inflow4"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow4" class="layer-off" onclick="toggleLayer('outflow_SN')" />
+                                  <label for="outflow4"  class="valign">Outflow Nodes</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth4" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth4"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector4" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector4"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
+
+      </div>
+      </li>
+
+
+
+
+      <li>
+        <div class="collapsible-header indigo-alt"><i class="material-icons right">keyboard_arrow_down</i>AHEC</div>
+        <div class="collapsible-body white">
+
+        <span style="display: inline-block;text-align:left">
+              <a href = "#!" id = "AHEC_Zoom" > 
+                  <p class="blue-grey-text valign left" style="margin-top:0px; margin-bottom: 10px; ">
+                  <i style="vertical-align: text-bottom;" class = "material-icons left valign blue-grey-text" >zoom_in</i><b>Zoom to Study</b> 
+                  </p>   
+             </a> 
+        </span>
+
+                               <p>
+                                  <input name= "bound_ahec" type="checkbox" id="bound_ahec" class="layer-off" onclick="toggleTwo('studyBoundariesFill_AHEC', 'studyBoundariesLine_AHEC')" />
+                                  <label for="bound_ahec"  class="valign">Study Extents</label>
+                                </p>         
+
+                                <p>
+                                  <input name= "contour" type="checkbox" id="contour6" class="layer-off" onclick="toggleThree('3d-buildings', '3d-buildings', '3d-buildings')" />
+                                  <label for="contour6"  class="valign">Contours</label>
+                                </p>
+
+                               <p>
+                                  <input name= "affstruct" type="checkbox" id="affstruct6" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="affstruct6"  class="valign">Affected Structures</label>
+                                </p>          
+   
+
+
+                               <p>
+                                  <input name= "nval" type="checkbox" id="nval6" class="layer-off" onclick="toggleLayer('nVal_AHEC')" />
+                                  <label for="nval6"  class="valign">Manning's N Values</label>
+                                </p>           
+
+
+
+                               <p class="noteLg"><b><em>Hydraulics</em></b></p>
+                                
+                                
+                                <p>
+                                  <input name= "inflow" type="checkbox" id="inflow6" class="layer-off" onclick="toggleLayer('inflow_AHEC')"  />
+                                  <label for="inflow6"  class="valign">Inflow Nodes</label>
+                                </p>  
+                                
+                         
+                                <p>
+                                  <input name= "outflow" type="checkbox" id="outflow6" class="layer-off" onclick="toggleLayer('outflow_AHEC')" />
+                                  <label for="outflow6"  class="valign">Outflow Nodes</label>
+                                </p>  
+
+                              
+                                <p>
+                                  <input name= "levee" type="checkbox" id="levee6" class="layer-off" onclick="toggleLayer('levee')" />
+                                  <label for="levee6"  class="valign">Levees</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "fxs" type="checkbox" id="fxs6" class="layer-off" onclick="toggleLayer('f2d_xs')" />
+                                  <label for="fxs6"  class="valign">Floodplain Cross Sections</label>
+                                </p> 
+
+
+                                <p>
+                                  <input name= "depth" type="checkbox" id="depth6" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="depth6"  class="valign">Flooding Depths at Cell</label>
+                                </p>  
+
+
+                                <p>
+                                  <input name= "vector" type="checkbox" id="vector6" class="layer-off" onclick="toggleLayer('structure')" />
+                                  <label for="vector6"  class="valign">Vector Matrix</label>
+                                </p>    
+
+
+
+      </div>
+      </li>
 
 
 
@@ -260,6 +714,14 @@
 
               <li class="collection-item grey-text"><div>Study Boundaries<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="#86D123" fill-opacity=".1" /></svg></a></div></li>
 
+              <li class="collection-item grey-text"><div>Manning's N Values</div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">0.03<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4'  fill="#ff73be" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">0.1<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="#51e86e" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">0.15'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="#ffed50" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">0.2'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4'  fill="#f46134" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">0.4<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4'  fill="#00bdc9" fill-opacity=".8" /></svg></a></div></li>
+                  
+
 
 
 
@@ -278,13 +740,13 @@
               <li class="collection-item grey-text"><div>Affected Structure<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="#000"  fill-opacity=".8" /></svg></a></div></li>
 
               <li class="collection-item grey-text"><div>Flow Depth</div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">.25' - .5'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(252,244,182)" fill-opacity=".8" /></svg></a></div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">.5' - 1'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(245,194,152)" fill-opacity=".8" /></svg></a></div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">1' - 1.5'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(227,147,138)" fill-opacity=".8" /></svg></a></div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">1.5' - 2'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(199,101,134)" fill-opacity=".8" /></svg></a></div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">2' - 3'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(161,59,139)" fill-opacity=".8" /></svg></a></div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">3' - 4'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(109,23,143)" fill-opacity=".8" /></svg></a></div></li>
-                   <li class="collection-item grey-text"><div class= "indentLess">4'+'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" fill="rgb(14,9,135)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">.25' - .5'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="rgb(252,244,182)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">.5' - 1'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="rgb(245,194,152)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">1' - 1.5'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4'fill="rgb(227,147,138)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">1.5' - 2'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4'fill="rgb(199,101,134)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">2' - 3'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="rgb(161,59,139)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">3' - 4'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="rgb(109,23,143)" fill-opacity=".8" /></svg></a></div></li>
+                   <li class="collection-item grey-text"><div class= "indentLess">4'+'<a href="#!" class="secondary-content"><svg height="21" width="21"><rect x="0" y="0" width="21" height="21" rx="4" ry='4' fill="rgb(14,9,135)" fill-opacity=".8" /></svg></a></div></li>
                 
               <li class="collection-item grey-text"><div>Velocity (cfs)</div></li>
                    <li class="collection-item grey-text"><div class= "indentLess">.25 - .5<a href="#!" class="secondary-content"><svg height="21" width="21" fill="#cfd8dc"><path d="M10.5,2.5L9.1,3.9l5.6,5.6H2.5v2h12.2l-5.6,5.6l1.4,1.4l8-8L10.5,2.5z"/></svg></a></div></li>
@@ -322,7 +784,18 @@
         </div>
       </li> 
       <!--end legend list-->
-    <span style="display: inline-block;text-align:center;"><a href= "https://www.flo-2d.com/" target = "blank"><img class="responsive-img" src="FLO-2D_logo_sm.jpg" style="padding:1rem;max-width:50%;"></a></span>
+    <span style="display: inline-block; text-align: center; background-color: #eee; margin-top: 1px; margin-bottom: 1px;" >
+          <a href= "https://www.flo-2d.com/" target = "blank"><img class="responsive-img" src="FLO-2D_logo_sm.jpg" style="padding:0.3rem;max-width:17%;"></a><a href= "http://www.gdal.org/" target = "blank"><img class="responsive-img" src="gdal.png" style="padding:0.28rem;max-width:10%;"></a>
+          <a href= "https://www.qgis.org/en/site/" target = "blank"><img class="responsive-img" src="QGIS.jpg" style="padding:0.28rem;max-width:10%;"></a>
+          <a href= "https://www.mapbox.com/" target = "blank"><img class="responsive-img" src="mapbox_logo.png" style="padding:0.1rem;max-width:25%;"></a>
+          <a href= "https://pages.github.com/" target = "blank"><img class="responsive-img" src="github.pages.jpg" style="padding:0.1rem;max-width:25%;"></a>
+    </span>
+
+
+
+
+
+
     </ul>
 
 
@@ -334,6 +807,9 @@
       </div>
     </main>
 </div>
+
+
+
 <!--end main index-->
 
 
