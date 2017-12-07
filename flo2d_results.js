@@ -80,6 +80,51 @@ map.on('style.load', function () {
     
 
 
+     map.addSource('AOI', {
+      type: 'geojson',
+      "data": 'AOI_Merged.geojson'
+    });    
+
+     map.addSource('depth_AHEC', {
+      type: 'geojson',
+      "data": 'depth_AHEC.geojson'
+    });    
+
+     map.addSource('depth_BN', {
+      type: 'geojson',
+      "data": 'depth_BroadwayNorth.geojson'
+    });  
+
+     map.addSource('depth_BS', {
+      type: 'geojson',
+      "data": 'depth_BroadwaySouth.geojson'
+    });  
+
+     map.addSource('depth_WP', {
+      type: 'geojson',
+      "data": 'depth_WashPark.geojson'
+    }); 
+
+     map.addSource('depth_CC', {
+      type: 'geojson',
+      "data": 'depth_ColfaxCentral.geojson'
+    }); 
+
+     map.addSource('depth_SS', {
+      type: 'geojson',
+      "data": 'depth_SanteFeSouth.geojson'
+    }); 
+
+     map.addSource('depth_SN', {
+      type: 'geojson',
+      "data": 'depth_SanteFeNorth.geojson'
+    }); 
+
+
+
+
+
+
     map.addSource('structures', {
         type: 'vector',
         url: 'mapbox://jlgred88.bzypits4'  //flo2d_buildingComplete-5zm9sw     
@@ -336,7 +381,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -387,6 +432,60 @@ map.on('style.load', function () {
            //   }, 
       }
   }, 'road-label-small');
+
+
+
+  map.addLayer({
+      'id': 'AOI_WP',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+  map.addLayer({
+      'id': 'flowDepth_WP',
+      'type': 'fill',
+      'source': 'depth_WP',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
+
+
+
+
+
+
+
 
 
 
@@ -450,7 +549,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -503,6 +602,50 @@ map.on('style.load', function () {
   }, 'road-label-small');
 
 
+  map.addLayer({
+      'id': 'AOI_CC',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Colfax Central'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+  map.addLayer({
+      'id': 'flowDepth_CC',
+      'type': 'fill',
+      'source': 'depth_CC',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
 
 
 
@@ -563,7 +706,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -615,6 +758,52 @@ map.on('style.load', function () {
       }
   }, 'road-label-small');
 
+
+  map.addLayer({
+      'id': 'AOI_SS',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Sante Fe South'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+
+  map.addLayer({
+      'id': 'flowDepth_SS',
+      'type': 'fill',
+      'source': 'depth_SS',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
 
 
 
@@ -676,7 +865,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -727,6 +916,54 @@ map.on('style.load', function () {
            //   }, 
       }
   }, 'road-label-small');
+
+
+  map.addLayer({
+      'id': 'AOI_SN',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Sante Fe North'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+  map.addLayer({
+      'id': 'flowDepth_SN',
+      'type': 'fill',
+      'source': 'depth_SN',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
+
+
 
 
 
@@ -787,7 +1024,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -838,6 +1075,56 @@ map.on('style.load', function () {
            //   }, 
       }
   }, 'road-label-small');
+
+
+
+  map.addLayer({
+      'id': 'AOI_BN',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Broadway North'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+  map.addLayer({
+      'id': 'flowDepth_BN',
+      'type': 'fill',
+      'source': 'depth_BN',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
+
+
+
 
 
 
@@ -897,7 +1184,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -950,6 +1237,52 @@ map.on('style.load', function () {
   }, 'road-label-small');
 
 
+
+  map.addLayer({
+      'id': 'AOI_BS',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Broadway South'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+
+  map.addLayer({
+      'id': 'flowDepth_BS',
+      'type': 'fill',
+      'source': 'depth_BS',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
 
 
 
@@ -1011,7 +1344,7 @@ map.on('style.load', function () {
               [0.11, '#51e86e'],
               [0.151, '#ffed50'],
               [0.21, '#f46134'],
-              [0.41, '#00bdc9'] 
+              [0.41, '#0085c9'] 
               ]
             },
         'fill-opacity': 0.7
@@ -1105,6 +1438,57 @@ map.on('style.load', function () {
 
 
 
+  map.addLayer({
+      'id': 'AOI_AHEC',
+      'type': 'line',
+      'filter': ["==", 'Name', 'AHEC'],
+      'source': 'AOI',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+
+  map.addLayer({
+      'id': 'flowDepth_AHEC',
+      'type': 'fill',
+      'source': 'depth_AHEC',
+      'filter': ['>', 'Var', 0.25],
+      'layout': {
+          'visibility': 'none'
+      },
+      'paint': {
+          'fill-color': {
+              property: 'Var',
+              type: 'interval',
+              stops: [
+                  [.25, '#8b0000'],
+                  [.5, '#b81b34'],
+                  [1, '#db4551'],
+                  [1.5, '#f47461'],
+                  [2, '#ffa474'],
+                  [3, '#ffd59b'],
+                  [4, '#FFFFC8']
+                  ]
+          },
+          'fill-opacity': 0.6
+      }
+  }, 'road-label-small');
+
+
+
+
+
+
 
 
 
@@ -1170,8 +1554,8 @@ map.on('style.load', function () {
       },
     paint: {
         'fill-opacity': 0.65,
-        'fill-color': '#F4A700',
-        'fill-outline-color': '#F4A700'
+        'fill-color': '#E6E659',
+        'fill-outline-color': '#E6E659'
     }
   }, 'road-label-small');
 
@@ -1188,8 +1572,8 @@ map.on('style.load', function () {
       },
     paint: {
         'fill-opacity': 0.65,
-        'fill-color': '#F40045',
-        'fill-outline-color': '#F40045'
+        'fill-color': '#69D6DC',
+        'fill-outline-color': '#69D6DC'
     }
   }, 'road-label-small');
 
@@ -1205,8 +1589,8 @@ map.on('style.load', function () {
       },
     paint: {
         'fill-opacity': 0.65,
-        'fill-color': '#F46500',
-        'fill-outline-color': '#F46500'
+        'fill-color': '#95ED72',
+        'fill-outline-color': '#95ED72'
     }
   }, 'road-label-small');
 
