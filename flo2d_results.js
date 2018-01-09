@@ -85,6 +85,12 @@ map.on('style.load', function () {
       "data": 'AOI_Merged.geojson'
     });    
 
+     map.addSource('AOI_AHEC', {
+        type: 'vector',
+        url: 'mapbox://jlgred88.b5otynos'  //AOI_AHEC-1x73ow
+    });
+      
+
      map.addSource('depth_AHEC', {
       type: 'geojson',
       "data": 'depth_AHEC.geojson'
@@ -184,9 +190,121 @@ map.on('style.load', function () {
 
 
 
+     map.addSource('contours_WP', {
+      type: 'geojson',
+      "data": 'contour_WashPark.geojson'
+    }); 
+
+/*
+     map.addSource('contour_CC', {
+      type: 'geojson',
+      "data": 'Colfax.geojson'
+    }); 
+
+     map.addSource('contour_SS', {
+      type: 'geojson',
+      "data": 'SoFe.geojson'
+    }); 
+
+     map.addSource('contour_SN', {
+      type: 'geojson',
+      "data": 'NoFe.geojson'
+    }); 
+
+
+       map.addSource('contour_BN', {
+      type: 'geojson',
+      "data": 'NoBo.geojson'
+    }); 
+
+
+
+       map.addSource('contour_BS', {
+      type: 'geojson',
+      "data": 'SoBo.geojson'
+    }); 
+
+
+       map.addSource('contour_AHEC', {
+      type: 'geojson',
+      "data": 'AHEC.geojson'
+    }); 
+
+*/
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //------------------------------------ADD BASE LAYER------------------------------
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+  //1-ft
+  map.addLayer({
+      'id': 'contoursMinor_WP',
+      'type': 'line',
+      'source': 'contours_WP',
+      'filter': ['==', 'Index', 1],
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 0], [17, 0.5], [19, 1]]
+        },
+        'line-opacity': 0,
+        'line-color': '#bd925a'
+      }
+  },'road-label-small');
+  
+
+  //10ft
+  map.addLayer({
+      'id': 'contoursMajor_WP',
+      'type': 'line',
+      'source': 'contours_WP',
+      'filter': ['all',['>', 'Index', 1]],
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 1], [17, 1.75], [19, 2.5]]
+        },
+        'line-opacity': 0,
+        'line-color': '#bd925a',
+      }
+  },'road-label-small');
+  
+
+
+  map.addLayer({
+      'id': '2ft_labels_WP',
+      'type': 'symbol',
+      'source': 'contours_WP',
+      'filter': ['all',['>', 'Index', 1]],
+      'layout': {
+        'symbol-placement': 'line',
+        'text-field': '{contour}',
+        'text-font': ['Roboto Light Italic','Open Sans Light','Arial Unicode MS Regular'],
+        'text-size': {
+          "stops": [[15,9],[17,11],[19,13]]
+        }
+      },
+      'paint': {
+        'text-color': '#bd925a',
+        'text-halo-color': '#F8F4F0',
+        'text-halo-width': 0.5,
+        'text-halo-blur': 0.5,
+        'text-opacity': 0
+      }
+  },'road-label-small');
+
+
+
+
+
+
+
 
 
     map.addLayer({
@@ -1441,8 +1559,8 @@ map.on('style.load', function () {
   map.addLayer({
       'id': 'AOI_AHEC',
       'type': 'line',
-      'filter': ["==", 'Name', 'AHEC'],
-      'source': 'AOI',
+      'source': 'AOI_AHEC',
+      'source-layer': 'AOI_AHEC-1x73ow',
       'layout': {
           'line-join': 'round',
           'line-cap': 'round',
