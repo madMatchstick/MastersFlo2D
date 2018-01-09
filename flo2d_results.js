@@ -603,6 +603,24 @@ map.on('style.load', function () {
 
 
 
+  map.addLayer({
+      'id': 'vel_WP',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
 
 
 
@@ -768,6 +786,30 @@ map.on('style.load', function () {
 
 
 
+  map.addLayer({
+      'id': 'vel_CC',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+
+
+
+
 
 // Sante Fe South
 
@@ -922,6 +964,29 @@ map.on('style.load', function () {
           'fill-opacity': 0.6
       }
   }, 'road-label-small');
+
+
+
+  map.addLayer({
+      'id': 'vel_SS',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
 
 
 
@@ -1084,6 +1149,30 @@ map.on('style.load', function () {
 
 
 
+  map.addLayer({
+      'id': 'vel_SN',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
+
+
+
+
 
 
 
@@ -1240,6 +1329,26 @@ map.on('style.load', function () {
           'fill-opacity': 0.6
       }
   }, 'road-label-small');
+
+  map.addLayer({
+      'id': 'vel_BN',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
 
 
 
@@ -1404,6 +1513,26 @@ map.on('style.load', function () {
 
 
 
+  map.addLayer({
+      'id': 'vel_BN',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
+      'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
+      'layout': {
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
+      },
+      'paint': {
+        'line-width': {
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
+        },
+        'line-color': '#FFB2AA'
+      }
+  },'road-label-small');
+
+
 
 
 
@@ -1515,44 +1644,28 @@ map.on('style.load', function () {
   }, 'road-label-small');
 
 
-
-
-
-
-
-    map.addLayer({
-      'id': 'levee',
-      'source': 'levee',
+  map.addLayer({
+      'id': 'vel_AHEC',
+      'type': 'line',
+      'filter': ["==", 'Name', 'Wash Park'],
       'source-layer': 'flo2d_levee-4icwae',
+      'source': 'levee',
       'layout': {
-        'visibility': 'none'
+          'line-join': 'round',
+          'line-cap': 'round',
+          'visibility': 'none'
       },
-      'type': 'line',
       'paint': {
-        'line-color': '#FF4CB6',
         'line-width': {
-            "stops": [[15, 2], [17, 3.7], [19, 4.5]]
+            "stops": [[15, 2], [17, 2.5], [19, 3.5]]
         },
+        'line-color': '#FFB2AA'
       }
-  }, 'road-label-small');
+  },'road-label-small');
 
 
-    map.addLayer({
-      'id': 'f2d_xs',
-      'source': 'xs',
-      'source-layer': 'flo2d_floodplainXs-6rx1nt',
-      'layout': {
-        'visibility': 'none'
-      },
-      'type': 'line',
-      'paint': {
-        'line-color': '#00A4FF',
-        'line-width': {
-            "stops": [[15, 1.7], [17, 3], [19, 4.5]]
-        },
-      }
-  }, 'road-label-small');
- 
+
+
 
 
 
@@ -1921,7 +2034,7 @@ for (var s = 0; s < studyRadio.length; s++) {
 
     map.on('click', function(e) {
         
-       var featureList = map.queryRenderedFeatures(e.point, { layers: ['parcelpoly'] });
+       var featureList = map.queryRenderedFeatures(e.point, { layers: ['parcelpoly', 'flowDepth_WP', 'flowDepth_AHEC', 'flowDepth_BS', 'flowDepth_BN', 'flowDepth_SN', 'flowDepth_SS', 'flowDepth_CC'] });
           if (!featureList.length) {
           return;
           }
@@ -1937,17 +2050,52 @@ for (var s = 0; s < studyRadio.length; s++) {
                      '<b>'+'CLASSIFICATION: ' + '</b>' + feature.properties.D_CLASS_CN + '<br/>' +
                      '<b>'+'OWNER: ' + '</b>'+  feature.properties.OWNER_NAME)
             .addTo(map);
-          };
+          }
 
+      else if ((id == 'flowDepth_WP') || (id == 'flowDepth_AHEC') || (id == 'flowDepth_CC') || (id == 'flowDepth_BN') || (id == 'flowDepth_BS') || (id == 'flowDepth_SS') || (id == 'flowDepth_SN')){
+        var popup = new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML('<b>'+ 'Wash Park Study Area' + '<br/>' +
+                     '<b>'+'Cell ID: ' + '</b>' + feature.properties.ID + '<br/>' +
+                     '<b>'+'Max Flood Depth: ' + '</b>' + feature.properties.Var + ' ft' + '<br/>')
+            .addTo(map);
+          };depth_SanteFeNorth
 
+ 
     });
 
     map.on('mousemove', function (e) {
-    var featureList = map.queryRenderedFeatures(e.point, { layers: ['parcelpoly'] });
+    var featureList = map.queryRenderedFeatures(e.point, { layers: ['parcelpoly', 'flowDepth_WP', 'flowDepth_AHEC', 'flowDepth_BS', 'flowDepth_BN', 'flowDepth_SN', 'flowDepth_SS', 'flowDepth_CC'] });
     map.getCanvas().style.cursor = (featureList.length) ? 'pointer' : '';
     });
 
         
+
+
+//define clear botton for WP
+$(document).ready(function() {
+    $("#clear").click(function() {
+        var checkBoxes = $("#layers_WP input[type=checkbox]");
+        
+        
+        checkBoxes.prop("checked", false);
+        map.setLayoutProperty('studyBoundariesFill_WP','visibility', 'none');
+        map.setLayoutProperty('studyBoundariesLine_WP','visibility', 'none');
+        map.setPaintProperty('contoursMinor_WP','line-opacity', 0);
+        map.setPaintProperty('contoursMajor_WP','line-opacity', 0);
+        map.setPaintProperty('2ft_labels_WP','text-opacity', 0);
+        map.setLayoutProperty('structure','visibility', 'none');
+        map.setLayoutProperty('nVal_WP','visibility', 'none');
+        map.setLayoutProperty('inflow_WP','visibility', 'none');
+        map.setLayoutProperty('outflow_WP','visibility', 'none');
+        map.setLayoutProperty('AOI_WP','visibility', 'none');
+        map.setLayoutProperty('flowDepth_WP','visibility', 'none');
+        map.setLayoutProperty('vel_WP','visibility', 'none');
+       });
+});
+
+
+
 
 
 
